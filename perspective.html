@@ -3,93 +3,44 @@
 <head>
     <meta charset="utf-8">
     <title>Perspective: "make it fancy"&trade;</title>
-    <link rel="stylesheet" href="animate.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="draggabilly.pkgd.js"></script>
+    <script type="text/javascript" src="js/draggabilly.pkgd.js"></script>
 
     <!--[if IE]>
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
 </head>
 
 <body id="home">
-    <a href="#" class="button reset-all">Reset</a>
-    <div class="cool"></div>
-    <div class="controls">
-      <div class="slide-control" data-type="rotateX">
-        <div class="slide-knob draggable">
-          <span class="slide-value-modal animated"></span>
-        </div>
-        <span class="slide-filled red"></span>
-        <input type="hidden" name="slide-control" id="slide-control-rotate" class="slide-control-input">
-      </div>
+  <a href="#" class="button reset-all">Reset</a>
+  <div class="cool"></div>
 
-      <div class="slide-control" data-type="rotateY">
-        <div class="slide-knob draggable">
-          <span class="slide-value-modal animated"></span>
-        </div>
-        <span class="slide-filled blue"></span>
+  <div class="controls">
+    <div class="slide-control slide-control-rotateX" data-type="rotateX">
+      <div class="slide-knob draggable">
+        <span class="slide-value-modal animated"></span>
       </div>
+      <span class="slide-filled red"></span>
+      <input type="hidden" name="slide-control" id="slide-control-rotate" class="slide-control-input">
     </div>
 
+    <div class="slide-control slide-control-rotateY" data-type="rotateY">
+      <div class="slide-knob draggable">
+        <span class="slide-value-modal animated"></span>
+      </div>
+      <span class="slide-filled blue"></span>
+    </div>
 
+    <div class="slide-control slide-control-rotateZ" data-type="rotateZ">
+      <div class="slide-knob draggable">
+        <span class="slide-value-modal animated"></span>
+      </div>
+      <span class="slide-filled green"></span>
+    </div>
+  </div>
 
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $.each($('.slide-control'), function(index, element){
-          var $slideContainer,
-              startPos;
-
-          $slideContainer = $(element);
-          startPos = $slideContainer.data('start-position');
-          $slideContainer.children('.slide-knob').css('left', startPos + '%');
-          $slideContainer.children('.slide-filled').css('width', startPos + '%');
-
-          var elem = $slideContainer.children('.draggable')[0];
-          var draggie = new Draggabilly(elem, {
-                              axis: 'x',
-                              containment: $(elem).parents('.slide-control')
-                            });
-          draggie.on('dragMove', onDragMove);
-          draggie.on('dragEnd',  onDragEnd);
-        });
-      });
-
-      $('.reset-all').on('click', function(){
-        $('.cool').removeAttr('style');
-      });
-
-      function onDragMove(instance, event, pointer) {
-        var $triggerKnob,
-            transformType,
-            sliderFill,
-            sliderPercent,
-            degreeValue;
-
-        // Do variable-ing
-        $triggerKnob = $(instance.element);
-        $controlContainer = $triggerKnob.parents('.slide-control');
-        transformType = $controlContainer.data('transform-type');
-        transformUnit = $controlContainer.data('transform-unit');
-
-        // Do Math
-        sliderFill = (instance.position.x / instance.containerSize.width);
-        sliderFill = sliderFill < 0 ? 0 : sliderFill;
-        sliderPercent = Math.round(sliderFill * 100);
-        transformValue = Math.round(sliderFill * 382);
-
-        // Do painting + motion
-        $triggerKnob.siblings('.slide-filled').css('width', sliderPercent + 1 + '%');
-        $triggerKnob.children('.slide-value-modal').html(transformValue);
-        $triggerKnob.children('.slide-value-modal').addClass('visible');
-        $('.cool').css('-webkit-transform', transformType + '('+ transformValue + transformUnit + ')');
-      }
-
-      function onDragEnd( instance, event, pointer ) {
-        $(instance.element).children('.slide-value-modal').removeClass('visible')
-      }
-    </script>
+  <script type="text/javascript" src="js/actions.js"></script>
 </body>
 </html>
