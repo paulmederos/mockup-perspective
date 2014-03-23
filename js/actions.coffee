@@ -28,6 +28,8 @@ $ ->
     prepareRotationSlider($('.slide-control-rotateZ'), zRotationVal)
     rotateView()
 
+  $('.cool').on 'animationend', ->
+    console.log 'done with animation'
 
 
 prepareRotationSlider = ($slideControl, rotationVal) ->
@@ -54,9 +56,9 @@ onDragMove = (instance, event, pointer) ->
     when 'rotateY'
       yRotationVal = Math.round(sliderFill * 360)
       updateSlider($triggerKnob, yRotationVal, sliderFill)
-    when 'rotateX'
+    when 'rotateZ'
       zRotationVal = Math.round(sliderFill * 360)
-      updateSliderModal($triggerKnob, zRotationVal, sliderFill)
+      updateSlider($triggerKnob, zRotationVal, sliderFill)
   rotateView()
   return
 

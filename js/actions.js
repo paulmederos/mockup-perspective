@@ -24,7 +24,7 @@
       zRotationVal = 180;
       return rotateView();
     });
-    return $('.action-perspective').on('click', function() {
+    $('.action-perspective').on('click', function() {
       xRotationVal = 236;
       yRotationVal = 180;
       zRotationVal = 140;
@@ -32,6 +32,9 @@
       prepareRotationSlider($('.slide-control-rotateY'), yRotationVal);
       prepareRotationSlider($('.slide-control-rotateZ'), zRotationVal);
       return rotateView();
+    });
+    return $('.cool').on('animationend', function() {
+      return console.log('done with animation');
     });
   });
 
@@ -62,9 +65,9 @@
         yRotationVal = Math.round(sliderFill * 360);
         updateSlider($triggerKnob, yRotationVal, sliderFill);
         break;
-      case 'rotateX':
+      case 'rotateZ':
         zRotationVal = Math.round(sliderFill * 360);
-        updateSliderModal($triggerKnob, zRotationVal, sliderFill);
+        updateSlider($triggerKnob, zRotationVal, sliderFill);
     }
     rotateView();
   };
